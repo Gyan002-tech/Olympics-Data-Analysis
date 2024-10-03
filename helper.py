@@ -53,7 +53,7 @@ def most_successful(df, sport):
     if sport != 'Overall':
         temp_df = temp_df[temp_df['Sport'] == sport]
 
-    x = temp_df['Name'].value_counts().reset_index().head(15).merge(df, on='Name', how='left')[['Name', 'count', 'Sport', 'region']]
+    x = temp_df['Name'].value_counts().reset_index().head(15).merge(df, on='Name', how='left')[['Name', 'count', 'Sport', 'region']].drop_duplicates(subset='Name')
     x.rename(columns={'count': 'Medals'}, inplace=True)
     return x
 
@@ -82,7 +82,7 @@ def most_successful_countrywise(df, country):
     temp_df = temp_df[temp_df['region'] == country]
 
     x = temp_df['Name'].value_counts().reset_index().head(10).merge(df, on='Name', how='left')[
-        ['Name', 'count', 'Sport']]
+        ['Name', 'count', 'Sport']].drop_duplicates(subset='Name')
     x.rename(columns={'count': 'Medals'}, inplace=True)
     return x
 
